@@ -3,20 +3,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-# initial
-x = 0 # initial x 
-y = 0 # initial y 
-v0 = 50 # initial velocity
-angle = 35 # initial angle
+x = 0 # inisialisasi x
+y = 0 # inisialisasi y
+v0 = 50 # inisialisasi velocity
+angle = 35 # inisialisasi sudut
 angle_rad = math.radians(angle) # convert degree to radian
-g = 9.806 # gravity acceleration
+g = 9.806 # gravitasi
 t = 0 # time
 dt = 0.01 
 d = 0.0013
 m = 150
 print(angle_rad)
 
-#%%
+
 #NUMERICAL
 x_arr = [x]
 y_arr = [y]
@@ -42,9 +41,9 @@ while y >= 0:
     t_arr.append(t)
     
 t_tot_num = t_arr[-1]
-# range
+# jarak
 range_num = x_arr[-1]
-# max height
+# max tinggi
 h_max_num = np.max(y_arr)
 
 print("SOLUSI NUMERIK")
@@ -53,7 +52,7 @@ print("JARAK YANG DITEMPUH",range_num)
 print("TINGGI MAKSIMAL",h_max_num)
 print("-------------------------")
 
-#%%
+
 #ANALYTICAL
 x_ex_arr = [0]
 y_ex_arr = [0]
@@ -77,14 +76,12 @@ for t in t_arr:
     x_ex_arr.append(x_ex)
     y_ex_arr.append(y_ex)
 
-    # x_ex = v0 * np.cos(angle_rad) * t
-    # y_ex = (0.5 * g * t**2) + (v0 * np.sin(angle_rad) * t)
 
-# total time
+# total waktu
 t_tot_ex = (2 * v0 * np.sin(angle_rad))/g
-# range
+# jarak
 range_ex = v0 * np.cos(angle_rad) * t_tot_ex
-# max height
+# max tinggi
 h_max_ex = (v0**2 * np.sin(angle_rad)**2) / (2 * g)
 
 print("SOLUSI ANALITIK")
@@ -100,4 +97,4 @@ plt.axvline(c='black')
 plt.legend()
 plt.show()
 
-# %%
+
