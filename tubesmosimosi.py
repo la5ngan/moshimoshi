@@ -1,11 +1,9 @@
-
-#%%
-#init
+#inisialisasi   
 import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-# init
+# initial
 x = 0 # initial x 
 y = 0 # initial y 
 v0 = 50 # initial velocity
