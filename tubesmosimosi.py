@@ -7,12 +7,12 @@ x = 0 # inisialisasi x
 y = 0 # inisialisasi y
 v0 = 50 # inisialisasi velocity
 angle = 35 # inisialisasi sudut
-angle_rad = math.radians(angle) # convert degree to radian
+angle_rad = math.radians(angle) # convert dari sudut ke radian
 g = 9.806 # gravitasi
 t = 0 # time
-dt = 0.01 
+dt = 0.01 # delta t
 d = 0.0013
-m = 150
+m = 150 # massa diubah menjadi Gram
 print(angle_rad)
 
 
@@ -35,7 +35,7 @@ while y >= 0:
     t += dt
     if y <= 0:
         break
-# store
+# menambahkan nilai ke array
     x_arr.append(x)
     y_arr.append(y)
     t_arr.append(t)
@@ -43,7 +43,7 @@ while y >= 0:
 t_tot_num = t_arr[-1]
 # jarak
 range_num = x_arr[-1]
-# max tinggi
+# tinggi maks
 h_max_num = np.max(y_arr)
 
 print("SOLUSI NUMERIK")
@@ -81,7 +81,7 @@ for t in t_arr:
 t_tot_ex = (2 * v0 * np.sin(angle_rad))/g
 # jarak
 range_ex = v0 * np.cos(angle_rad) * t_tot_ex
-# max tinggi
+# tinggi maks
 h_max_ex = (v0**2 * np.sin(angle_rad)**2) / (2 * g)
 
 print("SOLUSI ANALITIK")
