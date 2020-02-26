@@ -47,9 +47,10 @@ range_num = x_arr[-1]
 h_max_num = np.max(y_arr)
 
 print("SOLUSI NUMERIK")
-print("TOTAL WAKTU ",t_tot_num)
-print("JARAK YANG DITEMPUH",range_num)
-print("TINGGI MAKSIMAL",h_max_num)
+print("              ")
+print("TOTAL WAKTU =",t_tot_num)
+print("JARAK YANG DITEMPUH =",range_num)
+print("TINGGI MAKSIMAL =",h_max_num)
 print("-------------------------")
 
 
@@ -64,7 +65,6 @@ vx = vx0
 vy = -vy0
 ax = 0
 ay = -g
-# t = 0
 
 
 for t in t_arr:
@@ -85,13 +85,14 @@ range_ex = v0 * np.cos(angle_rad) * t_tot_ex
 h_max_ex = (v0**2 * np.sin(angle_rad)**2) / (2 * g)
 
 print("SOLUSI ANALITIK")
-print("TOTAL WAKTU ",t_tot_ex)
-print("JARAK YANG DITEMPUH",range_ex)
-print("TINGGI MAKSIMAL",h_max_ex)
+print("               ")
+print("TOTAL WAKTU =",t_tot_ex)
+print("JARAK YANG DITEMPUH =",range_ex)
+print("TINGGI MAKSIMAL =",h_max_ex)
 
 plt.figure()
-plt.plot(x_arr, y_arr, c='b', label='numerical')
-plt.plot(x_ex_arr, y_ex_arr, c='r', label='analytical')
+plt.plot(x_arr, y_arr, c='r', label='NUMERIK')
+plt.plot(x_ex_arr, y_ex_arr, c='y', label='ANALITIK')
 plt.axhline(c='black')
 plt.axvline(c='black')
 plt.legend()
