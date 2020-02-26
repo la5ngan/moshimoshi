@@ -36,15 +36,15 @@ while y >= 0:
     if y <= 0:
         break
 # menambahkan nilai ke array
-    x_arr.append(x)
+    x_array.append(x)
     y_arr.append(y)
     t_arr.append(t)
     
-t_tot_num = t_arr[-1]
+t_tot_num = t_array[-1]
 # jarak
-range_num = x_arr[-1]
+range_num = x_array[-1]
 # tinggi maks
-h_max_num = np.max(y_arr)
+h_max_num = np.max(y_array)
 
 print("SOLUSI NUMERIK")
 print("              ")
@@ -55,8 +55,8 @@ print("-------------------------")
 
 
 #ANALYTICAL
-x_ex_arr = [0]
-y_ex_arr = [0]
+x_ex_array = [0]
+y_ex_array = [0]
 x0 = 0
 y0 = 0
 vx0 = v0 * np.cos(angle_rad)
@@ -73,8 +73,8 @@ for t in t_arr:
     ay = - g - ((d/m) * v * vy)
     x_ex = x0 + (vx0 * t) + ((ax/2) * t * t)
     y_ex = y0 + (vy0 * t) + ((ay/2) * t * t)
-    x_ex_arr.append(x_ex)
-    y_ex_arr.append(y_ex)
+    x_ex_array.append(x_ex)
+    y_ex_array.append(y_ex)
 
 
 # total waktu
@@ -91,8 +91,8 @@ print("JARAK YANG DITEMPUH =",range_ex)
 print("TINGGI MAKSIMAL =",h_max_ex)
 
 plt.figure()
-plt.plot(x_arr, y_arr, c='r', label='NUMERIK')
-plt.plot(x_ex_arr, y_ex_arr, c='y', label='ANALITIK')
+plt.plot(x_array, y_array, c='r', label='NUMERIK')
+plt.plot(x_ex_array, y_ex_array, c='y', label='ANALITIK')
 plt.axhline(c='black')
 plt.axvline(c='black')
 plt.legend()
