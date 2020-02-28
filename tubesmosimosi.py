@@ -12,14 +12,14 @@ g = 9.806 # gravitasi
 t = 0 # time
 dt = 0.01 # delta t
 d = 0.0013
-m = 150 # massa diubah menjadi Gram
+m = 0.15 
 print(angle_rad)
 
 
-#NUMERICAL
-x_arr = [x]
-y_arr = [y]
-t_arr = [t]
+#numerik tanpa hambatan
+x_array = [x]
+y_array = [y]
+t_array = [t]
 
 vx = v0 * np.cos(angle_rad)
 vy = v0 * np.sin(angle_rad)
@@ -37,65 +37,106 @@ while y >= 0:
         break
 # menambahkan nilai ke array
     x_array.append(x)
-    y_arr.append(y)
-    t_arr.append(t)
+    y_array.append(y)
+    t_array.append(t)
     
-t_tot_num = t_array[-1]
+t_tot_numtanpa = t_array[-1]
 # jarak
-range_num = x_array[-1]
+range_numtanpa = x_array[-1]
 # tinggi maks
-h_max_num = np.max(y_array)
+h_max_numtanpa = np.max(y_array)
 
-print("SOLUSI NUMERIK")
-print("              ")
-print("TOTAL WAKTU =",t_tot_num)
-print("JARAK YANG DITEMPUH =",range_num)
-print("TINGGI MAKSIMAL =",h_max_num)
+# # print("SOLUSI NUMERIK")
+# print("              ")
+print("TOTAL WAKTU =",t_tot_numtanpa)
+print("JARAK YANG DITEMPUH =",range_numtanpa)
+print("TINGGI MAKSIMAL =",h_max_numtanpa)
+print("-------------------------")
+
+#numerik dengan hambatan
+vxhambatan = v0*np.cos(angle_rad)
+vyhambatan = v0*np.sin(angle_rad)
+vhambatan = math.sqrt((vxhambatan*vxhambatan)+(vyhambatan*vyhambatan))
+axhambatan = -(d/m)*vhambatan*vxhambatan
+ayhambatan = -g-(d/m)*vhambatan*vyhambatan
+
+xhambatan = 0
+yhambatan = 0
+thambatan = 0
+array_xhambatan,array_yhambatan,array_thambatan = [xhambatan],[yhambatan],[thambatan]
+
+while yhambatan>=0 and xhambatan>=0:
+    vxhambatan += axhambatan*dt
+    vyhambatan += ayhambatan*dt
+    xhambatan += vxhambatan*dt
+    yhambatan += vyhambatan*dt
+    thambatan += dt
+    if yhambatan <= 0 :
+        break
+    array_xhambatan.append(xhambatan)
+    array_yhambatan.append(yhambatan)
+    array_thambatan.append(thambatan)
+
+t_tothambatan = array_thambatan[-1]
+h_maxhambatan = np.max(array_yhambatan)
+r_maxhambatan = array_xhambatan[-1]
+
+
+print("TOTAL WAKTU =",t_tothambatan)
+print("JARAK YANG DITEMPUH =",r_maxhambatan)
+print("TINGGI MAKSIMAL =",h_maxhambatan)
 print("-------------------------")
 
 
 #ANALYTICAL
-x_ex_array = [0]
-y_ex_array = [0]
+x_an_array = [0]
+y_an_array = [0]
 x0 = 0
 y0 = 0
 vx0 = v0 * np.cos(angle_rad)
 vy0 = v0 * np.sin(angle_rad)
-vx = vx0
-vy = -vy0
+vx_an = vx0
+vy_an = vy0
 ax = 0
 ay = -g
 
+v = math.sqrt((vx * vx) + (vy * vy))
+for t in t_array:
 
-for t in t_arr:
-    v = math.sqrt((vx * vx) + (vy * vy))
-    ax = (-d/m) * v * vx
-    ay = - g - ((d/m) * v * vy)
-    x_ex = x0 + (vx0 * t) + ((ax/2) * t * t)
-    y_ex = y0 + (vy0 * t) + ((ay/2) * t * t)
-    x_ex_array.append(x_ex)
-    y_ex_array.append(y_ex)
+    x_an = x0 + (vx0 * t) + ((ax/2) * t * t)
+    y_an = y0 + (vy0 * t) + ((ay/2) * t * t)
+    x_an_array.append(x_an)
+    y_an_array.append(y_an)
 
 
 # total waktu
-t_tot_ex = (2 * v0 * np.sin(angle_rad))/g
+t_tot_an = (2 * v0 * np.sin(angle_rad))/g
 # jarak
-range_ex = v0 * np.cos(angle_rad) * t_tot_ex
+range_an = v0 * np.cos(angle_rad) * t_tot_an
 # tinggi maks
-h_max_ex = (v0**2 * np.sin(angle_rad)**2) / (2 * g)
+h_max_an = (v0**2 * np.sin(angle_rad)**2) / (2 * g)
 
-print("SOLUSI ANALITIK")
-print("               ")
-print("TOTAL WAKTU =",t_tot_ex)
-print("JARAK YANG DITEMPUH =",range_ex)
-print("TINGGI MAKSIMAL =",h_max_ex)
+print("TOTAL WAKTU =",t_tot_an)
+print("JARAK YANG DITEMPUH =",range_an)
+print("TINGGI MAKSIMAL =",h_max_an)
 
+# jawaban no 1
 plt.figure()
-plt.plot(x_array, y_array, c='r', label='NUMERIK')
-plt.plot(x_ex_array, y_ex_array, c='y', label='ANALITIK')
+plt.title("NUMERIK")
+plt.title("Hambatan dibandingkan dengan Tanpa Hambatan")
+plt.plot(x_array, y_array, c='r', label='Tanpa Hambatan')
+plt.plot(array_xhambatan, array_yhambatan, c='y', label='Hambatan')
 plt.axhline(c='black')
 plt.axvline(c='black')
 plt.legend()
 plt.show()
 
-
+# jawaban no 2
+plt.figure()
+plt.title("Analitik dibandingkan dengan Numerik")
+plt.plot(x_array, y_array, c='r', label='NUMERIK')
+plt.plot(x_an_array, y_an_array, c='y', label='ANALITIK')
+plt.axhline(c='black')
+plt.axvline(c='black')
+plt.legend()
+plt.show()
