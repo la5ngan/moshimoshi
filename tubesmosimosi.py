@@ -1,20 +1,18 @@
-#inisialisasi   
 import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-x = 0 # inisialisasi x
-y = 0 # inisialisasi y
+x = 0 
+y = 0 
+t = 0
 v0 = 50 # inisialisasi velocity
 angle = 35 # inisialisasi sudut
 angle_rad = math.radians(angle) # convert dari sudut ke radian
 g = 9.806 # gravitasi
-t = 0 # time
 dt = 0.01 # delta t
 d = 0.0013
 m = 0.15 
 print(angle_rad)
-
 
 #numerik tanpa hambatan
 x_array = [x]
@@ -35,7 +33,6 @@ while y >= 0:
     t += dt
     if y <= 0:
         break
-# menambahkan nilai ke array
     x_array.append(x)
     y_array.append(y)
     t_array.append(t)
@@ -46,8 +43,6 @@ range_numtanpa = x_array[-1]
 # tinggi maks
 h_max_numtanpa = np.max(y_array)
 
-# # print("SOLUSI NUMERIK")
-# print("              ")
 print("TOTAL WAKTU =",t_tot_numtanpa)
 print("JARAK YANG DITEMPUH =",range_numtanpa)
 print("TINGGI MAKSIMAL =",h_max_numtanpa)
@@ -56,16 +51,16 @@ print("-------------------------")
 #numerik dengan hambatan
 vxhambatan = v0*np.cos(angle_rad)
 vyhambatan = v0*np.sin(angle_rad)
-vhambatan = math.sqrt((vxhambatan*vxhambatan)+(vyhambatan*vyhambatan))
-axhambatan = -(d/m)*vhambatan*vxhambatan
-ayhambatan = -g-(d/m)*vhambatan*vyhambatan
 
 xhambatan = 0
 yhambatan = 0
 thambatan = 0
 array_xhambatan,array_yhambatan,array_thambatan = [xhambatan],[yhambatan],[thambatan]
 
-while yhambatan>=0 and xhambatan>=0:
+while yhambatan>=0:
+    vhambatan = math.sqrt((vxhambatan*vxhambatan)+(vyhambatan*vyhambatan))
+    axhambatan = -(d/m)*vhambatan*vxhambatan
+    ayhambatan = -g-(d/m)*vhambatan*vyhambatan
     vxhambatan += axhambatan*dt
     vyhambatan += ayhambatan*dt
     xhambatan += vxhambatan*dt
@@ -130,6 +125,7 @@ plt.axhline(c='black')
 plt.axvline(c='black')
 plt.legend()
 plt.show()
+
 
 # jawaban no 2
 plt.figure()
